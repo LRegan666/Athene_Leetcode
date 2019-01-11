@@ -1,9 +1,3 @@
-# Definition for singly-linked list.
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
-
 class Solution:
     def rotateRight(self, head, k):
         """
@@ -13,8 +7,6 @@ class Solution:
         """
         if not head:
             return None
-        if k == 0:
-            return head
         phead, tail = head, None
         l = 0
         while phead:
@@ -23,9 +15,12 @@ class Solution:
                 tail = phead
             phead = phead.next
         steps = k % l
+        if steps == 0:
+            return head
+        phead = ListNode(0)
+        phead.next = head
         i = 0
-        phead = head
-        while i < l-steps-1:
+        while i < l-steps:
             phead = phead.next
             i += 1
         old_head = head

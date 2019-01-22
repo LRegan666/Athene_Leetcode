@@ -10,63 +10,9 @@ class Solution:
         :type head: ListNode
         :rtype: ListNode
         """
-        if not head:
-            return None
-        sorted_node = ListNode(head.val)
-        pnode = sorted_node
-        current_length = 0
-        while head:
-            if head.val >= pnode.val:
-                pnode.next = head
-                pnode = pnode.next
-                current_length += 1
-                head = head.next
-            else:
-                add_head = head
-                head = head.next
-                mid = int(current_length / 2)
-                mid_node = sorted_node
-                pre_mid_node = sorted_node
-                for _ in range(mid):
-                    pre_mid_node = mid_node
-                    mid_node = mid_node.next
-                self.insert_node(sorted_node, pre_mid_node, mid_node, mid, current_length, add_head)
-                current_length += 1
-        pnode.next = None
-        return sorted_node.next
 
-    def insert_node(self, left_node, pre_mid_node, mid_node, mid, total, add_node):
-        if mid == 0 or mid_node.val == add_node.val:
-            if pre_mid_node == left_node and mid_node == left_node:
-                mid_node = mid_node.next
-            pre_mid_node.next = add_node
-            pre_mid_node = pre_mid_node.next
-            pre_mid_node.next = mid_node
-            return
-        if mid_node.val > add_node.val:
-            current_total = mid
-            current_mid = int((current_total - 1) / 2)
-            current_mid_node = left_node
-            current_pre_mid_node = left_node
-            for _ in range(current_mid):
-                current_pre_mid_node = current_mid_node
-                current_mid_node = current_mid_node.next
-            self.insert_node(left_node, current_pre_mid_node, current_mid_node, current_mid, current_total, add_node)
-        elif mid_node.next and mid_node.val < add_node.val <= mid_node.next.val:
-            tmp = mid_node.next
-            mid_node.next = add_node
-            mid_node = mid_node.next
-            mid_node.next = tmp
-        else:
-            current_total = total - mid
-            current_mid = int((current_total - 1) / 2)
-            left_node = mid_node.next
-            current_mid_node = left_node
-            current_pre_mid_node = mid_node
-            for _ in range(current_mid):
-                current_pre_mid_node = current_mid_node
-                current_mid_node = current_mid_node.next
-            self.insert_node(left_node, current_pre_mid_node, current_mid_node, current_mid, current_total, add_node)
+    def mergeList(self, node, mid):
+        
 
 
 if __name__ == '__main__':
